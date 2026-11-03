@@ -45,10 +45,10 @@ input,textarea,select{width:100%;padding:12px;border:1px solid var(--line);borde
 </main>
 <script>
 const items=[
-{id:'di',name:'Desayuno interior',icon:'🍳',group:'food',rate:100},{id:'de',name:'Desayuno exterior',icon:'🌅',group:'food',rate:200},
-{id:'ai',name:'Almuerzo interior',icon:'🍛',group:'food',rate:130},{id:'ae',name:'Almuerzo exterior',icon:'🍱',group:'food',rate:300},{id:'om',name:'Almuerzo Isla de Ometepe',icon:'🏝️',group:'food',rate:350},
-{id:'ci',name:'Cena interior',icon:'🍽️',group:'food',rate:110},{id:'ce',name:'Cena exterior',icon:'🌙',group:'food',rate:200},
-{id:'taxi',name:'Taxi',icon:'🚕',group:'travel',rate:90},{id:'hotel',name:'Hospedaje',icon:'🏨',group:'travel',rate:1100},{id:'bus',name:'Bus',icon:'🚌',group:'travel',rate:100},{id:'ferry',name:'Ferry',icon:'⛴️',group:'travel',rate:650},{id:'lancha',name:'Lancha',icon:'🚤',group:'travel',rate:100}];
+{id:'di',name:'Desayuno local',icon:'🍳',group:'food',rate:115},{id:'de',name:'Desayuno exterior',icon:'🌅',group:'food',rate:200},
+{id:'ai',name:'Almuerzo local',icon:'🍛',group:'food',rate:150},{id:'ae',name:'Almuerzo exterior',icon:'🍱',group:'food',rate:300},{id:'om',name:'Almuerzo Isla de Ometepe',icon:'🏝️',group:'food',rate:350},
+{id:'ci',name:'Cena local',icon:'🍽️',group:'food',rate:120},{id:'ce',name:'Cena exterior',icon:'🌙',group:'food',rate:200},
+{id:'taxi',name:'Taxi',icon:'🚕',group:'travel',rate:100},{id:'hotel',name:'Hospedaje',icon:'🏨',group:'travel',rate:1100},{id:'bus',name:'Bus',icon:'🚌',group:'travel',rate:100},{id:'ferry',name:'Ferry',icon:'⛴️',group:'travel',rate:650},{id:'lancha',name:'Lancha',icon:'🚤',group:'travel',rate:100}];
 const money=n=>'C$ '+Number(n||0).toLocaleString('es-NI',{minimumFractionDigits:2,maximumFractionDigits:2});
 const today=()=>{let d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
 const el=id=>document.getElementById(id);
@@ -57,6 +57,8 @@ let hoursRecords=JSON.parse(localStorage.getItem('mv_hours')||'[]');
 let observations=JSON.parse(localStorage.getItem('mv_observations')||'{}');
 let rates=JSON.parse(localStorage.getItem('mv2_rates')||'null')||Object.fromEntries(items.map(x=>[x.id,{amount:x.rate,mode:'fixed'}]));
 rates=Object.fromEntries(items.map(x=>{let r=rates[x.id];return [x.id,typeof r==='number'?{amount:r,mode:'fixed'}:(r||{amount:x.rate,mode:'fixed'})]}));
+// Actualiza únicamente las cuatro tarifas solicitadas, conservando el modo fijo/variable.
+for(const [id,amount] of Object.entries({di:115,ai:150,ci:120,taxi:100})){rates[id]={...(rates[id]||{}),amount};}
 let counts={},lastTouched=null,periods=[];
 el('fecha').value=today();
 function saveStore(){localStorage.setItem('mv2_records',JSON.stringify(records));localStorage.setItem('mv2_rates',JSON.stringify(rates));localStorage.setItem('mv_hours',JSON.stringify(hoursRecords));localStorage.setItem('mv_observations',JSON.stringify(observations))}
