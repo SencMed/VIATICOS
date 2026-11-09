@@ -13,3 +13,6 @@ PUBLICAR DESDE IPHONE
 No borres datos del navegador: los registros se guardan localmente.
 
 ACTUALIZACIÓN v8: tarifas predeterminadas actualizadas: Desayuno local C$115, Almuerzo local C$150, Cena local C$120 y Taxi C$100. Se cambió Interior por Local y se agruparon los cortes por mes. Se mantienen los demás importes y categorías.
+
+
+ACTUALIZACIÓN v9: En la pestaña Historial, al elegir un mes se muestra el total acumulado de horas extras de ese mes. El detalle diario existente permanece debajo. No se cambian los datos guardados ni las tarifas.
